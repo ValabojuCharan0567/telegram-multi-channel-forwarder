@@ -1,56 +1,78 @@
-# Telegram Autoforwarder
+Telegram Multi-Channel Forwarder 🚀
 
-The Telegram Autoforwarder is a Python script that allows you to forward messages from one chat (group or channel) to another based on specified keywords. It works with both groups and channels, requiring only the necessary permissions to access the messages.
+The Telegram Multi-Channel Forwarder is a Python-based tool developed by Valaboju Charan. It allows you to automatically forward messages from multiple Telegram groups or channels to your chosen destination channels. You can filter messages using keywords so only the content you care about gets forwarded.
 
-## Features
+This bot is simple, fast, and works with both groups and channels.
 
-- Forward messages containing specific keywords from one chat to another.
-- Works with both groups and channels.
-- Simple setup and usage.
+✨ Features
 
-## How it Works
+🔄 Forward messages from multiple source channels/groups to a single or multiple destination channels.
 
-The script uses the Telethon library to interact with the Telegram API. You provide the script with your Telegram API ID, API hash, and phone number for authentication. Then, you can choose to list all chats you're a part of and select the ones you want to use for forwarding messages. Once configured, the script continuously checks for messages in the specified source chat and forwards them to the destination chat if they contain any of the specified keywords.
+🔑 Filter messages using case-insensitive keywords.
 
-## Keywords
+✅ Supports both groups and public/private channels.
 
-You can specify one or more keywords that, if found in a message, trigger the forwarding process. Keywords are case-insensitive and can be specified during setup.
+⚡ Lightweight and easy to configure.
 
-## Setup and Usage
+⚙️ How It Works
 
-1. Clone the repository:
+The script uses the Telethon library to interact with the Telegram API.
 
-   ```bash
-   https://github.com/ValabojuCharan0567/telegram-multi-channel-forwarder.git
-   ```
+Authenticate using your Telegram API ID, API Hash, and Phone Number.
 
-2. Install the required dependencies:
+Select which chats to monitor.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+The script continuously listens for new messages in your chosen sources.
 
-3. Configure the script:
+If a message contains the specified keywords, it gets forwarded to your destination channel.
 
-   - Open `TelegramForwarder.py` file and provide your Telegram API ID, API hash, and phone number in the appropriate variables.
-   - Modify other settings as needed directly in the script.
+🔑 Keywords
 
-4. Run the script:
+Add one or more keywords (comma-separated).
 
-   ```bash
-   python TelegramForwarder.py
-   ```
+Keywords are not case-sensitive.
 
-5. Choose an option:
-   - List Chats: View a list of all chats you're a part of and select the ones to use for message forwarding.
-   - Forward Messages: Enter the source chat ID, destination chat ID, and keywords to start forwarding messages.
+Example: If you set ["deal", "offer"], then messages containing deal, DEAL, Offer, etc. will be forwarded.
 
-## Notes
+🚀 Setup & Usage
+1. Clone the Repository
+git clone https://github.com/ValabojuCharan0567/telegram-multi-channel-forwarder.git
+cd telegram-multi-channel-forwarder
 
-- Remember to keep your API credentials secure and do not share them publicly.
-- Ensure that you have the necessary permissions to access messages in the chats you want to use.
-- Adjust the script's behavior and settings according to your requirements.
+2. Install Dependencies
+pip install -r requirements.txt
 
-## License
+3. Configure
 
-This project is licensed under the MIT License.
+Open TelegramForwarder.py.
+
+Replace these with your details:
+
+api_id = "YOUR_API_ID"
+api_hash = "YOUR_API_HASH"
+phone = "+91XXXXXXXXXX"  # Your phone number with country code
+
+
+Add your source channels, destination channel, and keywords inside the script.
+
+4. Run
+python TelegramForwarder.py
+
+5. Options
+
+List Chats → Shows all your chats so you can get their IDs.
+
+Forward Messages → Start forwarding messages based on your rules.
+
+📌 Notes
+
+Keep your API credentials private.
+
+Make sure you have permission to read/forward from the channels.
+
+You can run this bot 24/7 using a free service like Render, Railway, or Heroku so you don’t need to keep your laptop on.
+
+👨‍💻 Author
+
+Created with ❤️ by Valaboju Charan
+🌐 GitHub: ValabojuCharan0567
