@@ -21,8 +21,7 @@ You can specify one or more keywords that, if found in a message, trigger the fo
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/redianmarku/Telegram-Autoforwarder.git
-   cd Telegram-Autoforwarder
+   https://github.com/ValabojuCharan0567/telegram-multi-channel-forwarder.git
    ```
 
 2. Install the required dependencies:
