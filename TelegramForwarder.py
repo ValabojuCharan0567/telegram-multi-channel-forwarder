@@ -27,12 +27,19 @@ class TelegramForwarder:
         for dialog in dialogs:
             print(f"Chat ID: {dialog.id}, Title: {dialog.title}")
 
-    async def forward_messages_to_channel(self, source_chat_ids, destination_channel_id, keywords):
-        """Forward messages from source chats to a destination channel with optional keyword filtering."""
+    async def forward_messages_to_channel(self, source_chat_ids, destination_chat, keywords):
+        """Forward messages from source chats to a destination channel/bot/group with optional keyword filtering."""
         await self.authorize()
         last_message_ids = {chat_id: 0 for chat_id in source_chat_ids}
 
-        print(f"🔍 Monitoring chats {source_chat_ids} → forwarding to {destination_channel_id}")
+        # Resolve destination entity
+        try:
+            destination_entity = await self.client.get_entity(destination_chat)
+        except Exception as e:
+            print(f"❌ Failed to resolve destination '{destination_chat}': {e}")
+            return
+
+        print(f"🔍 Monitoring chats {source_chat_ids} → forwarding to {destination_chat}")
 
         while True:
             for chat_id in source_chat_ids:
@@ -47,7 +54,7 @@ class TelegramForwarder:
                         text_lower = message.text.lower()
                         if not keywords or any(keyword in text_lower for keyword in keywords):
                             try:
-                                await self.client.send_message(destination_channel_id, message.text)
+                                await self.client.send_message(destination_entity, message.text)
                                 print(f"✅ Forwarded from {chat_id}: {message.text[:50]}")
                             except Exception as e:
                                 print(f"❌ Failed to forward message: {e}")
@@ -55,22 +62,25 @@ class TelegramForwarder:
                 if messages:
                     last_message_ids[chat_id] = messages[0].id
 
-            await asyncio.sleep(5)  # Wait 5 seconds before checking again
+            await asyncio.sleep(5)
 
-# ----------------------- Predefined Settings ----------------------- #
+# ----------------------- Settings ----------------------- #
 API_ID = 26531485
 API_HASH = "7ae9b39f4acdc709219b8ef1f073d067"
 PHONE_NUMBER = "+918074526151"
 
-SOURCE_CHAT_IDS = [-1001422047391, -1001670336143, -1001865098968, -1001389782464]  # Source chats
-DESTINATION_CHAT_ID = 2015117555  # Destination chat
+SOURCE_CHAT_IDS = [-1001422047391, -1001670336143, -1001865098968, -1001389782464]
+
+# Destination is your bot username
+DESTINATION_CHAT = '@ExtraPeBot'
+
 KEYWORDS = []  # Leave empty to forward all messages, or add lowercase keywords like ['deal', 'offer']
 
 # ------------------------------------------------------------------- #
 
 async def main():
     forwarder = TelegramForwarder(API_ID, API_HASH, PHONE_NUMBER)
-    await forwarder.forward_messages_to_channel(SOURCE_CHAT_IDS, DESTINATION_CHAT_ID, KEYWORDS)
+    await forwarder.forward_messages_to_channel(SOURCE_CHAT_IDS, DESTINATION_CHAT, KEYWORDS)
 
 if __name__ == "__main__":
     asyncio.run(main())
